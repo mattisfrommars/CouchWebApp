@@ -1,0 +1,128 @@
+@(currentPage: domain.Page[(domain.Expert, domain.Speciality)], currentOrderBy: Int, currentFilter: String,user:domain.User)(implicit request: RequestHeader, flash: Flash, messages: Messages, webJarAssets: WebJarAssets)
+@****************************************
+* Helper generating navigation links *
+****************************************@
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+    routes.Admin.listSpecialitiesApplications(newPage, newOrderBy.map { orderBy =>
+        if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+    }.getOrElse(currentOrderBy), currentFilter)
+
+}
+
+    @**********************************
+    * Helper generating table headers *
+    ***********************************@
+@header(orderBy: Int, title: String) = {
+    <th class="col@orderBy header @if(scala.math.abs(currentOrderBy) == orderBy) @{
+        if(currentOrderBy < 0) "headerSortDown" else "headerSortUp"
+    }">
+        <a href="@link(0, Some(orderBy))">@title</a>
+    </th>
+}
+
+@main(messages("admin.speciality.application.list.page.title"), Some(user)) {
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                <h1>@messages("admin.speciality.application.nav.title")</h1>
+                <hr/>
+
+
+                <div class="col-md-12">
+                    <ul class="list-inline text-right">
+                        <li>
+                            <form action="@routes.Admin.listSpecialitiesApplications()" class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="@Messages("search.name")"/>
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-search">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                    <div class="clearfix visible-md-block"></div>
+                </div>
+                <hr/>
+
+                <div class="col-md-12">
+                @Option(currentPage.items).filterNot(_.isEmpty).map { experts =>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            @header(1, messages("admin.speciality.application.new.form.professional"))
+                            @header(2, messages("admin.speciality.application.new.form.speciality"))
+                            @header(3, messages("admin.speciality.application.new.form.approved"))
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    @experts.map {
+                        case (expert, speciality) => {
+                            <tr>
+                                <td><a title="Perfil" href="@routes.ProfessionalController.professionalInfo(expert.id.get)">@expert.fullName</a></td>
+                                <td>
+                                @speciality.name
+                                </td>
+                                <td>
+
+                                    <div class="checkbox">
+                                        <label>
+                                        @if(expert.isApproved) {
+                                            @messages("admin.speciality.application.new.form.approved")
+                                        } else {
+                                            <a title="Aprovar" href="@routes.Admin.editSpecialityApplications(expert.id.get)">
+                                                @messages("admin.speciality.application.new.form.approve")</a>
+                                        }
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <nav>
+                    <ul class="pager">
+                        @currentPage.prev.map { page =>
+                        <li class="previous">
+                            <a href="@link(page)">&larr; @messages("pagination.previous")</a>
+                        </li>
+                        }.getOrElse {
+                            <li class="previous disabled">
+                                <a>&larr; @messages("pagination.previous")</a>
+                            </li>
+                        }
+                        @currentPage.next.map { page =>
+                        <li class="next">
+                            <a href="@link(page)">@messages("pagination.next") &rarr;</a>
+                        </li>
+                        }.getOrElse {
+                            <li class="next disabled">
+                                <a>@messages("pagination.next") &rarr;</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+
+                }.getOrElse {
+
+                    <div class="well">
+                        <em>@messages("empty.results")</em>
+                    </div>
+
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,4 @@
+@(user: domain.User, url: String)(implicit messages: Messages)
+@messages("email.activate.account.hello", user.firstName.getOrElse("user"))
+
+@messages("email.activate.account.txt.text", url)

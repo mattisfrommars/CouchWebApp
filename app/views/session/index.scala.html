@@ -1,0 +1,86 @@
+@(sessionRegister: Form[(String, Long, Long, String, Long, Long, String)], agenda: Option[domain.AgendaEntry], professional: Option[domain.User], specialities: Seq[(String, String)], user: domain.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+
+@import helper._
+
+@main(messages("customer.session.register.page.title"), Some(user)) {
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                @messages("customer.session.register.page.resume", professional.get.fullName.get)
+
+                @form(action = routes.SessionController.create(agenda.get.id.get)) {
+                    @CSRF.formField
+                    @if(sessionRegister.hasGlobalErrors) {
+                        <ul>
+                        @for(error <- sessionRegister.globalErrors) {
+                            <li>@Messages(error.messages, error.args)</li>
+                        }
+                        </ul>
+                    }
+
+                    <input type="hidden" name="professionalId" value="@professional.map(_.userID.toString)">
+                    <input type="hidden" name="agendaId" value="@agenda.map(_.id.map(_.toString))">
+
+                    <div class="form-group">
+                        <label for="inputSpeciality">@messages("admin.speciality.nav.title")</label>
+                        <select id="specialityId" name="specialityId" class="form-control">
+                        @for((id, name) <- specialities) {
+                            <option value="@id.toString">@name.toString</option>
+                        }
+                        </select>
+                        @for(error <- sessionRegister.errors("specialityId")) {
+                            <span class="error">
+                            @Messages(error.message)
+                            </span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName">@messages("customer.session.register.page.form.credit.name")</label>
+                        <input name="@sessionRegister("creditCardName").name" value="@sessionRegister("creditCardName").value" type="text" class="form-control" id="inputName" placeholder="@messages("customer.session.register.page.form.credit.name")" required>
+                        @for(error <- sessionRegister.errors("creditCardName")) {
+                            <span class="error">
+                            @Messages(error.message)
+                            </span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">@messages("customer.session.register.page.form.credit.number")</label>
+                        <input name="@sessionRegister("creditCardNumber").name" value="@sessionRegister("creditCardNumber").value" type="number" class="form-control" id="inputDescription" placeholder="@messages("customer.session.register.page.form.credit.number")" required>
+                        @for(error <- sessionRegister.errors("creditCardNumber")) {
+                            <span class="error">
+                            @Messages(error.message)
+                            </span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescription">@messages("customer.session.register.page.form.credit.cvv")</label>
+                        <input name="@sessionRegister("creditCardCVV").name" value="@sessionRegister("creditCardCVV").value" type="number" class="form-control" id="inputDescription" placeholder="@messages("customer.session.register.page.form.credit.cvv")" required>
+                        @for(error <- sessionRegister.errors("creditCardCVV")) {
+                            <span class="error">
+                            @Messages(error.message)
+                            </span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescription">@messages("customer.session.register.page.form.credit.date")</label>
+                        <input name="@sessionRegister("creditCardExpirationDate").name" value="@sessionRegister("creditCardExpirationDate").value" type="text" class="form-control" id="inputDescription" placeholder="MM/YYYY" required>
+                        @for(error <- sessionRegister.errors("creditCardExpirationDate")) {
+                            <span class="error">
+                            @Messages(error.message)
+                            </span>
+                        }
+                    </div>
+
+                    <button type="submit" class="btn btn-default">@messages("customer.session.register.page.form.btn.register")</button>
+
+                }
+            </div>
+
+            <hr/>
+        </div>
+    </div>
+}

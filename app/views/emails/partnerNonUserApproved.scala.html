@@ -1,0 +1,8 @@
+@(name: String, url:String)(implicit messages: Messages)
+
+<html>
+    <body>
+        <p>@messages("email.partner.accepted.hello", name)</p>
+        <p>@Html(messages("email.partner.accepted.nonuser.html.text", url))</p>
+    </body>
+</html>

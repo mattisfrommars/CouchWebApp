@@ -1,0 +1,8 @@
+@(user: domain.User, url: String)(implicit messages: Messages)
+
+<html>
+    <body>
+        <p>@messages("email.sign.up.hello", user.firstName.getOrElse("user"))</p>
+        <p>@Html(messages("email.sign.up.html.text", url))</p>
+    </body>
+</html>

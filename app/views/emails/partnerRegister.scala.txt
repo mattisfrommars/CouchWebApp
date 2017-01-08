@@ -1,0 +1,3 @@
+@(name: String)(implicit messages: Messages)
+@messages("email.partner.register.hello", name)
+@messages("email.partner.register.txt.text"))

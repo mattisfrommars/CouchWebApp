@@ -1,0 +1,3 @@
+@(name: String, date:String)(implicit messages: Messages)
+@messages("email.session.created.hello", name)
+@messages("email.session.customer.created.txt.text", date))

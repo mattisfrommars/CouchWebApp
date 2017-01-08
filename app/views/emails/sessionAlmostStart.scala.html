@@ -1,0 +1,8 @@
+@(name: String)(implicit messages: Messages)
+
+<html>
+  <body>
+    <p>@messages("email.session.starting.hello", name)</p>
+    <p>@Html(messages("email.session.starting.html.text"))</p>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+@(currentPage: domain.Page[(domain.Speciality)], currentOrderBy: Int, currentFilter: String, user: domain.User)(implicit request: RequestHeader, flash: Flash, messages: Messages, webJarAssets: WebJarAssets)
+    @****************************************
+    * Helper generating navigation links *
+    ****************************************@
+    @link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+        routes.Admin.listSpecialities(newPage, newOrderBy.map { orderBy =>
+            if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+        }.getOrElse(currentOrderBy), currentFilter)
+
+    }
+
+        @**********************************
+        * Helper generating table headers *
+        ***********************************@
+    @header(orderBy: Int, title: String) = {
+        <th class="col@orderBy header @if(scala.math.abs(currentOrderBy) == orderBy) @{
+            if(currentOrderBy < 0) "headerSortDown" else "headerSortUp"
+        }">
+            <a href="@link(0, Some(orderBy))">@title</a>
+        </th>
+    }
+
+    @main(messages("admin.speciality.list.page.title"), Some(user)) {
+        <div class="container" style="margin-top: 50px;">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+
+                    <h1>@messages("admin.speciality.nav.title")</h1>
+                    <hr/>
+                    <div class="col-md-12">
+                        <ul class="list-inline text-right">
+                            <li>
+                                <a class="btn btn-primary" id="add" href="@routes.Admin.indexSpeciality()">
+                                    @messages("admin.speciality.new.btn.title")</a>
+                            </li>
+                            <li>
+                                <form action="@routes.Admin.listSpecialities()" class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="@messages("search.name")"/>
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-search">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                        <div class="clearfix visible-md-block"></div>
+                    </div>
+                    <hr/>
+
+                    <div class="col-md-12">
+                    @Option(currentPage.items).filterNot(_.isEmpty).map { specialities =>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                @header(1, messages("admin.speciality.new.form.name"))
+                                @header(2, messages("admin.speciality.new.form.description"))
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        @specialities.map {
+                            case (speciality) => {
+                                <tr>
+                                    <td><a title="Editar" href="@routes.Admin.editSpeciality(speciality.id.get)">@speciality.name</a></td>
+                                    <td>
+                                    @speciality.description
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    </table>
+
+                    <nav>
+                        <ul class="pager">
+                            @currentPage.prev.map { page =>
+                            <li class="previous">
+                                <a href="@link(page)">&larr; @messages("pagination.previous")</a>
+                            </li>
+                            }.getOrElse {
+                                <li class="previous disabled">
+                                    <a>&larr; @messages("pagination.previous")</a>
+                                </li>
+                            }
+                            @currentPage.next.map { page =>
+                            <li class="next">
+                                <a href="@link(page)">@messages("pagination.next") &rarr;</a>
+                            </li>
+                            }.getOrElse {
+                                <li class="next disabled">
+                                    <a>@messages("pagination.next") &rarr;</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+
+                    }.getOrElse {
+
+                        <div class="well">
+                            <em>@messages("empty.results")</em>
+                        </div>
+
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+

@@ -1,0 +1,37 @@
+@(profile: Option[domain.Profile], user: domain.User)(implicit request: RequestHeader, flash: Flash, messages: Messages, webJarAssets: WebJarAssets)
+
+@main("", Some(user)) {
+
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                @profile.get.avatarUrl.map { case (image) =>
+                <img src="@routes.Application.imagesRequest(name = image)" class="img-circle img-responsive">
+                }.getOrElse {
+                    <img src="@routes.Assets.at("images/user.png")" class="img-circle img-responsive">
+                }
+                @helper.form(action = routes.ProfessionalController.updateprofessionalPhotoProfile(), 'enctype -> "multipart/form-data") {
+
+                    <input type="file" name="picture">
+                    @helper.CSRF.formField
+                    <p>
+                        <input type="submit">
+                    </p>
+
+                }
+                <p>
+                @profile.get.aboutMe
+                <p>
+                @profile.get.yearsOfExperience
+                </p>
+                <p>
+                @profile.get.numberOfCases
+                </p>
+            </p>
+                <a href="@routes.ProfessionalController.editprofessionalProfile()">edit</a>
+            </div>
+        </div>
+    </div>
+
+
+}

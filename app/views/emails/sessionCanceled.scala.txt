@@ -1,0 +1,3 @@
+@(name: String)(implicit messages: Messages)
+@messages("email.session.canceled.hello", name)
+@messages("email.session.canceled.txt.text")

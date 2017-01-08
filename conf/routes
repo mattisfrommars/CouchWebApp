@@ -1,0 +1,78 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+# Business Routes
+GET           /                                               controllers.Application.index
+GET           /about                                          controllers.Application.about
+POST          /contact/send                                   controllers.Application.sendContactMessage
+GET           /contact                                        controllers.Application.contact
+GET           /signOut                                        controllers.Application.signOut
+GET           /specialities                                   controllers.SpecialityController.index(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /specialities/speciality/:id                    controllers.SpecialityController.speciality(id: Long)
+GET           /profissionals                                  controllers.ProfessionalController.index(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /profissional/id                                controllers.ProfessionalController.professionalInfo(expertId: Long)
+GET           /session/:id                                    controllers.SessionController.index(id: Long)
+GET           /session/create/:id                             controllers.SessionController.create(id:Long)
+GET           /images/profile/:name                           controllers.Application.imagesRequest(name: String)
+
+# User Account Routes
+GET           /authenticate/:provider                         controllers.SocialAuthController.authenticate(provider)
+GET           /signUp                                         controllers.SignUpController.view
+POST          /signUp                                         controllers.SignUpController.submit
+GET           /signIn                                         controllers.SignInController.view
+POST          /signIn                                         controllers.SignInController.submit
+GET           /password/forgot                                controllers.ForgotPasswordController.view
+POST          /password/forgot                                controllers.ForgotPasswordController.submit
+GET           /password/reset/:token                          controllers.ResetPasswordController.view(token: java.util.UUID)
+POST          /password/reset/:token                          controllers.ResetPasswordController.submit(token: java.util.UUID)
+GET           /password/change                                controllers.ChangePasswordController.view
+POST          /password/change                                controllers.ChangePasswordController.submit
+GET           /account/email/:email                           controllers.ActivateAccountController.send(email: String)
+GET           /account/activate/:token                        controllers.ActivateAccountController.activate(token: java.util.UUID)
+
+
+# Customer & Professional & Admin Routes
+GET           /sessions                                       controllers.SessionController.sessions(p:Int ?= 0, s:Int ?= 2, f ?= "", e ?=1)
+GET           /sessions/professional                          controllers.SessionController.sessionsForProfessional(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /sessions/session/:id                           controllers.SessionController.session(id: Long)
+GET           /sessions/session/:id/reschedule                controllers.SessionController.reschedule(id: Long)
+PUT           /sessions/session/:id/cancel                    controllers.SessionController.updateReschedule(id: Long)
+GET           /sessions/session/cancel/:id                    controllers.SessionController.cancelSession(id:Long)
+GET           /sessions/session/close/:id                     controllers.SessionController.closeSession(id:Long)
+
+# Professional Routes
+GET           /agenda                                         controllers.AgendaController.index
+GET           /agenda/details                                 controllers.AgendaController.userAgenda(start: String ?="")
+POST          /agenda/save                                    controllers.AgendaController.storeEntries
+GET           /agenda/professional                            controllers.AgendaController.detail(userId: String, start:String ?="")
+POST          /agenda/entry                                   controllers.AgendaController.create
+DELETE        /agenda/entry                                   controllers.AgendaController.delete
+GET           /professional/specialities                      controllers.ProfessionalController.listApplicationExpertise(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /professional/apply/speciality                  controllers.ProfessionalController.newApplication
+POST          /professional/apply/speciality                  controllers.ProfessionalController.registerApplication
+GET           /professional/profile                           controllers.ProfessionalController.professionalProfile
+GET           /professional/profile/edit                      controllers.ProfessionalController.editprofessionalProfile
+POST          /professional/profile/edit                      controllers.ProfessionalController.updateprofessionalProfile
+POST          /professional/profile                           controllers.ProfessionalController.updateprofessionalPhotoProfile
+# Admin Routes
+GET           /admin/specialities                             controllers.Admin.listSpecialities(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /admin/specialities/:id/edit                    controllers.Admin.editSpeciality(id: Long)
+POST          /admin/specialities/:id/edit                    controllers.Admin.updateSpeciality(id: Long)
+GET           /admin/speciality/create                        controllers.Admin.indexSpeciality
+POST          /admin/speciality/create                        controllers.Admin.createSpeciality
+GET           /admin/specialities/applications                controllers.Admin.listSpecialitiesApplications(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /admin/specialities/application/:id/edit        controllers.Admin.editSpecialityApplications(id: Long)
+POST          /admin/specialities/application/:id/edit        controllers.Admin.updateSpecialityApplications(id: Long)
+GET           /admin/partners/applications                    controllers.Admin.listPartnerApplication(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET           /admin/partners/applications/approve/:id        controllers.Admin.approvePartnerApplication(id:Long)
+GET           /admin/partners/applications/remove/:id         controllers.Admin.removePartnerApplication(id:Long)
+GET           /admin/system/sessions                          controllers.SessionController.sessionsForAdmin(p:Int ?= 0, s:Int ?= 2, f ?= "")
+
+# Partners
+GET           /partner                                        controllers.PartnerController.index
+POST          /partner                                        controllers.PartnerController.registerPartner
+
+# Map static resources from the /public folder to the /assets URL path
+GET           /assets/*file                                   controllers.Assets.at(path="/public", file)
+GET           /webjars/*file                                  controllers.WebJarAssets.at(file)
+    

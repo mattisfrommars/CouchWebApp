@@ -1,0 +1,25 @@
+@(openTokInfo: (Int, String, String), user: domain.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+
+@scripts = {
+    <script src="@routes.Assets.at("javascripts/video.js")"></script>
+}
+
+@main(messages("customer.session.register.page.title"), Some(user), scripts) {
+    <div class="container" style="margin-top: 150px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="video" class="col-md-8 col-md-offset-2" data-couch-apikey="@openTokInfo._1" data-couch-session="@openTokInfo._2" data-couch-token="@openTokInfo._3">
+                    <div class="col-md-12" id="othersVideo">
+
+                    </div>
+                </div>
+                <hr class="clearfix" />
+            </div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-6 col-md-offset-3" style="margin-top: 10px;" id="myVideo">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

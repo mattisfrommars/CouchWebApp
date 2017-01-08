@@ -1,0 +1,46 @@
+@(specialityRegisterForm: Form[(String, String)], user: domain.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+
+@import helper._
+
+@main(messages("admin.speciality.register.page.title"), Some(user)) {
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+            @form(action = routes.Admin.createSpeciality()) {
+                @CSRF.formField
+                @if(specialityRegisterForm.hasGlobalErrors) {
+                    <ul>
+                    @for(error <- specialityRegisterForm.globalErrors) {
+                        <li>@Messages(error.messages, error.args)</li>
+                    }
+                    </ul>
+                }
+
+                <div class="form-group">
+                    <label for="inputName">@messages("admin.speciality.new.form.name")</label>
+                    <input name="@specialityRegisterForm("name").name" value="@specialityRegisterForm("name").value" type="text" class="form-control" id="inputName" placeholder="@messages("admin.speciality.new.form.name")" >
+                    @for(error <- specialityRegisterForm.errors("name")) {
+                        <span class="error">
+                        @Messages(error.message)
+                        </span>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription">@messages("admin.speciality.new.form.description")</label>
+                    <textarea name="@specialityRegisterForm("description").name" value="@specialityRegisterForm("description").value" type="text" class="form-control" id="inputDescription" placeholder="@messages("admin.speciality.new.form.description")" required></textarea>
+                    @for(error <- specialityRegisterForm.errors("description")) {
+                        <span class="error">
+                        @Messages(error.message)
+                        </span>
+                    }
+                </div>
+
+                <button type="submit" class="btn btn-default">@messages("admin.speciality.new.form.register")</button>
+
+            }
+            </div>
+
+            <hr/>
+        </div>
+    </div>
+}

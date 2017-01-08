@@ -1,0 +1,295 @@
+error.email = Valid email required
+error.required = This field is required
+invalid.credentials = Invalid credentials!
+access.denied = Access denied!
+could.not.authenticate = Could not authenticate with social provider! Please try again!
+
+home.title = Couch - Home
+sign.up.title = Couch - Sign Up
+sign.in.title = Couch - Sign In
+forgot.password.title = Couch - Forgot Password
+reset.password.title = Couch - Reset Password
+change.password.title = Couch - Change Password
+activate.account.title = Couch - Activate Account
+
+header.about = about
+header.contact = Contact
+header.specialties = Specialties
+header.doctors = Doctors
+
+user.info.title = Profile Information 
+
+
+
+search.name = Search by Name
+
+
+empty.results = No records
+empty.query = Not Found
+
+toggle.navigation = Toggle navigation
+welcome.signed.in = Welcome, you are now signed in!
+
+sign.up.account = Sign up for a new account
+sign.in.credentials = Sign in with your credentials
+
+error = Error!
+info = Info!
+success = Success!
+home = Home
+first.name = First name
+last.name = Last name
+full.name = Full name
+email = Email
+password = Password
+send = Send
+change = Change
+reset = Reset
+sign.up = Sign up
+sign.in = Sign in
+sign.out = Sign out
+sign.in.now = Sign in now
+sign.up.now = Sign up now
+already.a.member = Already a member?
+not.a.member = Not a member?
+forgot.your.password = Forgot your password?
+forgot.password = Forgot password
+reset.password = Reset password
+change.password = Change password
+activate.account = Activate Account
+current.password = Current password
+new.password = New password
+
+remember.me = Remember my login on this computer
+or.use.social = Or use your existing account on one of the following services to sign in:
+forgot.password.info = Please enter your email address and we will send you an email with further instructions to reset your password.
+strong.password.info = Strong passwords include numbers, letters and punctuation marks.
+current.password.invalid = The entered password is invalid. Please enter the correct password!
+activate.account.text1 = You can''t log in yet. We previously sent an activation email to you at:
+activate.account.text2 = Please follow the instructions in that email to activate your account.
+activate.account.text3 = Click <a href="{0}">here</a> to send the activation email again.
+
+sign.up.email.sent = You''re almost done! We sent an activation mail to {0}. Please follow the instructions in the email to activate your account. If it doesn''t arrive, check your spam folder, or try to log in again to send another activation mail.
+activation.email.sent = We sent another activation email to you at {0}. It might take a few minutes for it to arrive; be sure to check your spam folder.
+reset.email.sent = We have sent you an email with further instructions to reset your password, on condition that the address was found in our system. If you do not receive an email within the next 5 minutes, then please recheck your entered email address and try it again.
+
+invalid.activation.link = The link isn't valid anymore! Please sign in to send the activation email again.
+invalid.reset.link = The link isn't valid anymore! Please request a new link to reset your password.
+
+password.reset = We have reset your password. You can now sign in with your credentials.
+account.activated = Your account is now activated! Please sign in to use your new account.
+password.changed = Your password has been changed.
+
+contact.page.title = Couch - Contact
+contact.page.form.title = Contact Us
+contact.page.form.subject = Subject
+contact.page.form.email = Email
+contact.page.form.body = Your Message
+contact.page.form.btn = Send
+contact.page.form.sended = Message was send
+
+
+google = Google
+facebook = Facebook
+twitter = Twitter
+vk = VK
+xing = Xing
+yahoo = Yahoo
+
+
+##########
+# Pagination
+##########
+pagination.previous = Previous
+pagination.next = Next
+
+##########
+# Admin
+##########
+admin.home.nav.dropdown.specialities.title = Specialities
+admin.home.nav.dropdown.professionals.title = Professionals
+admin.home.nav.dropdown.sessions.title = Sessions
+admin.home.nav.dropdown.partner.title = Partner
+
+admin.speciality.list.page.title = Couch - Specialities
+admin.speciality.register.page.title = Couch - New Speciality
+admin.speciality.edit.page.title = Couch - Edit Speciality
+admin.speciality.nav.title = Specialities
+admin.speciality.new.btn.title = Create Speciality
+admin.speciality.new.form.name = Name
+admin.speciality.new.form.description = Description
+admin.speciality.new.form.register = Register
+admin.speciality.new.form.edit = Edit
+admin.speciality.new.form.success.created = Speciality was created 
+admin.speciality.new.form.success.edited = Speciality was edited
+
+admin.speciality.application.list.page.title = Couch - Professionals
+admin.speciality.application.edit.page.title = Couch - Edit Professional
+admin.speciality.application.nav.title = Professionals
+admin.speciality.application.new.form.professional = Professional
+admin.speciality.application.new.form.speciality = Speciality
+admin.speciality.application.new.form.approved = Approved
+admin.speciality.application.new.form.approve  = Approve
+
+admin.partner.list.page.title = Partner
+
+
+##########
+# Professionals
+##########
+professional.list.page.title = Couch - My Applications
+professional.new.page.title = Couch - Add Speciality
+professional.nav.dropdown.applications = Applications
+professional.nav.dropdown.sessions = Sessions
+professional.nav.dropdown.profile = Profile
+professional.nav.dropdown.agenda = Agenda
+professional.expertise.fields.list = My Specialities
+professional.expertise.fields.btn.new = Add Speciality
+professional.expertise.fields.btn.action = Application Submitted
+professional.expertise.fields.header.approval = Approval
+professional.expertise.fields.header.approved = approved
+professional.expertise.fields.header.approve = In review
+
+professional.session.view.page.title = Couch - My Sessions
+professional.session.view.page.header = My Sessions
+professional.session.view.page.header.customer = Patient
+professional.session.view.page.header.date = Date
+professional.session.view.page.header.actions = Actions
+professional.session.view.page.header.actions.go = Go To Consult
+professional.session.view.page.header.actions.cancel = Cancel
+professional.session.view.page.header.actions.reschedule = Reschedule
+professional.session.view.page.header.actions.close = Close Session
+
+professional.session.view.page.btn.historic = Historic
+
+##########
+# Customer
+##########
+customer.nav.dropdown.sessions = My Sessions
+customer.speciality.list.page.title = Couch - Our services
+customer.speciality.list.page.header = Thinking in your health
+customer.speciality.list.item.header = Specialities
+customer.speciality.list.item.description = Description
+
+customer.professional.list.page.title = Couch - Our Professionals
+customer.professional.list.page.header = Our Professionals
+customer.professional.list.page.item.years = Years of experience
+customer.professional.list.page.item.cases = Number of cases
+customer.professional.list.page.item.fields = Expert on
+customer.professional.list.page.item.btn.agenda = Availability
+customer.professional.list.page.item.empty.applications = Waiting for professional
+
+customer.session.register.page.title = Couch - Session
+customer.session.register.page.resume = You have pick {0} as your professional, fill the form as last step
+customer.session.register.page.form.title = Session
+customer.session.register.page.form.credit.name = Credit Card Name
+customer.session.register.page.form.credit.number = Credit Card Number
+customer.session.register.page.form.credit.cvv = Credit Card CVV Number
+customer.session.register.page.form.credit.date = Credit Card Expiration Date
+customer.session.register.page.form.btn.register = Register
+
+customer.session.view.page.title = Couch - My Sessions
+customer.session.view.page.header = My Sessions
+customer.session.view.page.header.professional = Professional
+customer.session.view.page.header.date = Date
+customer.session.view.page.header.actions = Actions
+customer.session.view.page.header.actions.go = Go To Consult
+customer.session.view.page.header.actions.cancel = Cancel
+customer.session.view.page.header.actions.reschedule = Reschedule
+customer.session.view.page.header.actions.historic = See Historic
+
+##########
+# Partners
+##########
+partner.page.index.title = Couch - Partnership
+partner.in.register = Your Information
+partner.register = Join to our team
+partner.yearsOfExperience = Years Of Experience
+partner.numberOfCases = Number Of Cases
+partner.approved = Actions
+partner.link = Approve
+partner.email = Email
+partner.list.title = Partners Waiting Approval
+partner.new.form.approved = Partner was approved
+partner.new.form.submitted = Partnership Submitted
+partner.remove.btn = Remove
+partner.remove.action.success = Partner was removed
+
+##########
+# Emails
+##########
+
+email.from = Couch <noreply@couch.pt>
+
+# Sign Up
+email.sign.up.subject = Welcome
+email.sign.up.hello = Hello {0},
+email.sign.up.html.text = Please follow <a href="{0}">this link</a> to confirm and activate your new account.
+email.sign.up.txt.text = Please follow the link to confirm and activate your new account: {0}
+
+# Already Signed Up
+email.already.signed.up.subject = Welcome
+email.already.signed.up.hello = Hello {0},
+email.already.signed.up.html.text = You already have an account registered. Please follow <a href="{0}">this link</a> to sign in into your account.
+email.already.signed.up.txt.text = You already have an account registered. Please follow the link to sign in into your account: {0}
+
+# Reset Password
+email.reset.password.subject = Reset password
+email.reset.password.hello = Hello {0},
+email.reset.password.html.text = Please follow <a href="{0}">this link</a> to reset your password.
+email.reset.password.txt.text = Please follow the link to reset your password: {0}
+
+# Activate Account
+email.activate.account.subject = Activate account
+email.activate.account.hello = Hello {0},
+email.activate.account.html.text = Please follow <a href="{0}">this link</a> to confirm and activate your new account.
+email.activate.account.txt.text = Please follow the link to confirm and activate your new account: {0}
+
+# Partner Register
+email.partner.register.subject = Submitted Partnership
+email.partner.register.hello = Hello {0},
+email.partner.register.html.text = Thanks for the interest. Contact us with you as soon as possible
+email.partner.register.txt.text = Thanks for the interest. We Contact you as soon as possible
+
+email.partner.accepted.subject = Partnership Accepted
+email.partner.accepted.hello = Hello {0},
+email.partner.accepted.user.html.text = You has been approved, You can login as professional
+email.partner.accepted.user.txt.text = You has been approved, You can login as professional
+
+email.partner.accepted.nonuser.html.text = You has been approved, Request new password in <a href="{0}">this link</a>
+email.partner.accepted.nonuser.txt.text = You has been approved, Request new password {0}
+
+
+# Customer / Professional New Session
+email.session.created.subject = Session Registered
+email.session.created.hello = Hello {0}.
+email.session.professional.created.html.text = You have a new session at {0}
+email.session.professional.created.txt.text = You have a new session at {0}
+email.session.customer.created.html.text = Thank you for your choice. You have registered a session at {0}
+email.session.customer.created.txt.text = Thank you for your choice. You have registered a session at {0}
+
+
+# Customer / Professional Canceled Session
+email.session.canceled.subject = Session Canceled
+email.session.canceled.hello = Hello {0}.
+email.session.canceled.html.text = You have one session canceled
+email.session.canceled.txt.text = You have one session cancelled
+
+
+# Customer / Professional session almost start
+email.session.starting.subject = Session is approaching
+email.session.starting.hello = Hello {0}.
+email.session.starting.html.text = You have one session approaching
+email.session.starting.txt.text = You have one session approaching
+
+
+# Footer
+footer.left.brand = Couch
+footer.left.description = Etiam condimentum mi nec tortor euismod, id lobortis odio dictum. Cras suscipit elit eget mi volutpat facilisis.
+
+footer.center.contact = Contact Info
+footer.center.address = Av of statue
+footer.center.email = couch@couch.pt
+footer.center.cellphone = 918882233
+
+footer.right.title = Navigation

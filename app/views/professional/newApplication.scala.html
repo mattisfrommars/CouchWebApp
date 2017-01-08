@@ -1,0 +1,39 @@
+@(applicationRegisterForm: Form[Long], specialities: Seq[(String, String)],user : domain.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+
+@import helper._
+
+@main(messages("professional.new.page.title"), Some(user)) {
+
+    <div class="col-md-6 col-md-offset-3">
+    @form(action = routes.ProfessionalController.registerApplication()) {
+        @CSRF.formField
+        @if(applicationRegisterForm.hasGlobalErrors) {
+            <ul>
+            @for(error <- applicationRegisterForm.globalErrors) {
+                <li>@Messages(error.messages, error.args)</li>
+            }
+            </ul>
+        }
+
+        <div class="form-group">
+            <label for="inputSpeciality">@messages("admin.speciality.nav.title")</label>
+            <select id="specialityId" name="specialityId" class="form-control">
+            @for((id, name) <- specialities) {
+                <option value="@id.toString">@name.toString</option>
+            }
+            </select>
+            @for(error <- applicationRegisterForm.errors("specialityId")) {
+                <span class="error">
+                @Messages(error.message)
+                </span>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-default">@messages("admin.speciality.new.form.register")</button>
+
+    }
+    </div>
+
+    <hr/>
+}
+

@@ -39,6 +39,15 @@ class ProfessionalController @Inject()(val specialitiesRepository: SpecialityRep
       .recover{ case _ => NotFound }
   }
 
+
+  def profile(id:Long) = silhouette.UserAwareAction.async { implicit request =>
+
+    val result = expertsRepository.getProfessionalByProfile(id);
+
+    result.map(info => Ok(views.html.professional.profile(info,request.identity)) )
+      .recover{ case _ => NotFound }
+  }
+
   def listApplicationExpertise(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[DefaultEnv#A](2)).async{ implicit request =>
     val experts = expertsRepository.listUserSpecialities(request.identity.userID.toString,page = page, orderBy = orderBy, filter = ("%" + filter + "%"))
     experts.map(ex => Ok(views.html.professional.listExpertiseFields(ex,orderBy,filter, request.identity)))
@@ -46,8 +55,9 @@ class ProfessionalController @Inject()(val specialitiesRepository: SpecialityRep
 
 
   val applicationRegisterForm = Form(
-    single(
-      "specialityId" -> longNumber
+    tuple(
+      "specialityId" -> longNumber,
+      "rate" -> number
     )
   )
 
@@ -66,8 +76,9 @@ class ProfessionalController @Inject()(val specialitiesRepository: SpecialityRep
           _ <- expertsRepository.insert(
             new Expert(
               fullName = request.identity.firstName.getOrElse("User"),
+              rate = application._2,
               isApproved = false,
-              specialityId = Option(application),
+              specialityId = Option(application._1),
               createdAt = new Timestamp(System.currentTimeMillis()),
               userId = Some(request.identity.userID.toString)
             ))

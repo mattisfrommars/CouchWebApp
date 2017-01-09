@@ -9,20 +9,6 @@
 window.onload = function () {
     $("#agenda").addClass("loading")
     getRequest("agenda/details", dataRequestedHandler);
-
-    if (document.cookie.indexOf("timezone") >= 0) {
-        // They've been here before.
-
-    }
-    else {
-        // set a new cookie
-        expiry = new Date();
-        expiry.setTime(expiry.getTime()+(10*60*1000)); // Ten minutes
-
-        // Date()'s toGMTSting() method will format the date correctly for a cookie
-        document.cookie = "timezone="+moment.tz.guess()+"; expires=" + expiry.toGMTString();
-
-    }
 };
 
 var agenda;
@@ -339,6 +325,7 @@ $("#save").click(function (event) {
         type: "POST",
         success: function (result, status, xhr) {
             alert(result.message);
+            window.onload();
         },
         error: function (xhr, status, error) {
             alert("Some error" + error);

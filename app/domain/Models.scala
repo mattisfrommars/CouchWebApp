@@ -118,6 +118,7 @@ case class Speciality(id: Option[Long] = None,
   */
 case class Expert(id: Option[Long] = None,
                   fullName: String,
+                  rate: Int,
                   isApproved: Boolean,
                   userId: Option[String] = None,
                   specialityId: Option[Long] = None,

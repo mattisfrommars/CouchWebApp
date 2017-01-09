@@ -28,7 +28,22 @@
 
                 <div class="col-md-12">
                     <ul class="list-inline text-right">
-
+                        <li>
+                            <a class="btn btn-primary active" id="add" href="@routes.SessionController.sessionsForProfessional()">
+                                Approaching</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsForProfessionalCanceled()">
+                                Canceled</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsForProfessionalHistoric()">
+                                Historic</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsForProfessionalNotPayed()">
+                                To Receive</a>
+                        </li>
                         <li>
                             <form action="@routes.SessionController.sessionsForProfessional()" class="form-inline">
                                 <div class="form-group">
@@ -83,7 +98,7 @@
                                         } else {
                                             @if(session.isCancelable) {
                                                 <li class="list-group-item">
-                                                    <a href="#" class="btn btn-sm">@messages("professional.session.view.page.header.actions.reschedule")</a>
+                                                    <a href="@routes.SessionController.reschedule(session.id.getOrElse(0))" class="btn btn-sm">@messages("professional.session.view.page.header.actions.reschedule")</a>
                                                 </li>
                                             }
                                             <li class="list-group-item">

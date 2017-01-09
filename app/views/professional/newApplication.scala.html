@@ -1,4 +1,4 @@
-@(applicationRegisterForm: Form[Long], specialities: Seq[(String, String)],user : domain.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+@(applicationRegisterForm: Form[(Long,Int)], specialities: Seq[(String, String)],user : domain.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
 
 @import helper._
 
@@ -23,6 +23,16 @@
             }
             </select>
             @for(error <- applicationRegisterForm.errors("specialityId")) {
+                <span class="error">
+                @Messages(error.message)
+                </span>
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="inputName">@messages("professional.expertise.form.rate")</label>
+            <input name="@applicationRegisterForm("rate").name" value="@applicationRegisterForm("rate").value" type="text" class="form-control" id="rate" placeholder="@messages("professional.expertise.form.rate")" >
+            @for(error <- applicationRegisterForm.errors("rate")) {
                 <span class="error">
                 @Messages(error.message)
                 </span>

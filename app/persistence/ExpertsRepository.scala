@@ -25,6 +25,8 @@ trait ExpertsComponent { self: HasDatabaseConfigProvider[JdbcProfile] =>
 
     def fullName = column[String]("FULLNAME")
 
+    def rate = column[Int]("RATE")
+
     def isApproved = column[Boolean]("ISAPPROVED")
 
     def userId = column[Option[String]]("USER_ID")
@@ -33,7 +35,7 @@ trait ExpertsComponent { self: HasDatabaseConfigProvider[JdbcProfile] =>
 
     def createdAt = column[Timestamp]("CREATEDAT")
 
-    def * = (id.?, fullName, isApproved, userId, specialityId, createdAt) <> (Expert.tupled, Expert.unapply _)
+    def * = (id.?, fullName,rate,isApproved, userId, specialityId, createdAt) <> (Expert.tupled, Expert.unapply _)
 
   }
 }
@@ -85,10 +87,10 @@ class ExpertsRepository @Inject()(protected val dbConfigProvider: DatabaseConfig
     val query = (for {
       expert <- experts if expert.isApproved === true && expert.userId === Option(userId)
       speciality <- specialities.filter(_.id === expert.specialityId)
-    } yield (speciality.id, speciality.name))
+    } yield (speciality.id, speciality.name, expert.rate))
       .sortBy(/*name*/ _._2)
 
-    db.run(query.result).map(rows => rows.map { case (id, name) => (id.toString, name) })
+    db.run(query.result).map(rows => rows.map { case (id, name,rate) => (id.toString, name + " - " + rate +"€") })
   }
 
   def getProfessionalByExpertise(expertId: Long) : Future[(Seq[(domain.Expert,domain.Speciality)],(domain.DBUser,domain.Profile))] = {
@@ -101,6 +103,27 @@ class ExpertsRepository @Inject()(protected val dbConfigProvider: DatabaseConfig
 
     val q = for{
       expert <- this.experts if expert.id === expertId
+      (ex,spe) <- this.experts join this.specialities on (_.specialityId === _.id) if expert.userId === ex.userId if ex.isApproved === true
+    } yield (ex,spe)
+
+    for{
+      group <- db.run(query.result.head)
+      result <- db.run(q.result)
+    } yield {
+      (result,group)
+    }
+  }
+
+
+  def getProfessionalByProfile(profileId: Long) : Future[(Seq[(domain.Expert,domain.Speciality)],(domain.DBUser,domain.Profile))] = {
+
+    val query = for{
+      profile <- profiles if profile.id === profileId
+      user <- this.users if user.id === profile.userId
+    } yield (user,profile)
+
+    val q = for{
+      (expert,p) <- this.experts join profiles on (_.userId === _.userId) if p.id === profileId
       (ex,spe) <- this.experts join this.specialities on (_.specialityId === _.id) if expert.userId === ex.userId if ex.isApproved === true
     } yield (ex,spe)
 

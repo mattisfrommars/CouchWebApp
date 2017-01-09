@@ -3,7 +3,7 @@
 * Helper generating navigation links *
 ****************************************@
 @link(newPage: Int, newOrderBy: Option[Int] = None) = @{
-    routes.SessionController.sessions(newPage, newOrderBy.map { orderBy =>
+    routes.SessionController.sessionsForAdminNotPayed(newPage, newOrderBy.map { orderBy =>
         if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     }.getOrElse(currentOrderBy), currentFilter)
 }
@@ -29,19 +29,23 @@
                 <div class="col-md-12">
                     <ul class="list-inline text-right">
                         <li>
-                            <a class="btn btn-primary active" id="add" href="@routes.SessionController.sessions()">
+                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsForAdmin()">
                                 Approaching</a>
                         </li>
                         <li>
-                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsCanceled()">
-                            Canceled</a>
+                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsForAdminCanceled()">
+                                Canceled</a>
                         </li>
                         <li>
-                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsHistoric()">
+                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsForAdminHistoric()">
                                 Historic</a>
                         </li>
                         <li>
-                            <form action="@routes.SessionController.sessions()" class="form-inline">
+                            <a class="btn btn-primary active" id="add" href="@routes.SessionController.sessionsForAdminNotPayed()">
+                                To Pay</a>
+                        </li>
+                        <li>
+                            <form action="@routes.SessionController.sessionsForAdminNotPayed()" class="form-inline">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="@Messages("search.name")"/>
@@ -66,47 +70,35 @@
                     <thead>
                         <tr>
                             @header(1, Messages("customer.session.view.page.header.professional"))
-                            @header(2, Messages("customer.session.view.page.header.date"))
-                            @header(3, Messages("customer.session.view.page.header.actions"))
+                            @header(2, "Customer")
+                            @header(3, Messages("customer.session.view.page.header.date"))
+                            @header(4, Messages("customer.session.view.page.header.actions"))
                         </tr>
                     </thead>
                     <tbody>
 
                     @sessions.map {
                         case (session) => {
+
                             <tr>
                                 <td>
                                 @session.professional.fullName.get
+                                </td>
+                                <td>
+                                @session.customer.fullName.get
                                 </td>
                                 <td>
                                 @session.dateFormatted
                                 </td>
                                 <td>
                                     <ul class="list-inline">
-                                    @if(!(session.sessionState == domain.SessionState.IS_AFTER_SESSION)) {
-                                        @if(session.sessionState == domain.SessionState.IS_IN_SESSION) {
-                                            <li class="list-group-item">
-                                                <a href="@routes.SessionController.session(session.id.get)" class="btn btn-sm">@messages("customer.session.view.page.header.actions.go")</a>
-                                            </li>
-                                        } else {
-                                            @if(session.isCancelable) {
-                                                <li class="list-group-item">
-                                                    <a href="@routes.SessionController.reschedule(session.id.getOrElse(0))" class="btn btn-sm">@messages("customer.session.view.page.header.actions.reschedule")</a>
-                                                </li>
-                                            }
-                                            <li class="list-group-item">
-                                                <a href="@routes.SessionController.cancelSession(session.id.get)" class="btn btn-sm">@messages("customer.session.view.page.header.actions.cancel")</a>
-                                            </li>
-
-                                        }
-                                    } else {
                                         <li class="list-group-item">
-                                            <a href="#" class="btn btn-sm">@messages("customer.session.view.page.header.actions.cancel")</a>
+                                            <a href="@routes.SessionController.payAndCloseSession(session.id.get)" class="btn btn-sm">Pay and close</a>
                                         </li>
-                                    }
                                     </ul>
                                 </td>
                             </tr>
+
                         }
                     }
                     </tbody>

@@ -1,0 +1,24 @@
+@(session:domain.Session,info: domain.DBUser, user: domain.User)(implicit request: RequestHeader, flash: Flash, messages: Messages, webJarAssets: WebJarAssets)
+
+@scripts = {
+    <script src="@routes.Assets.at("javascripts/rescheduleApp.js")"></script>
+}
+
+
+@main("Reschedule", Some(user), scripts) {
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>reschedule</h1>
+                <p>Check Professional to reschedule</p>
+                <p>
+                    <button class="btn btn-default requestAgenda" data-couch-target="@info.id" data-couch-session="@session.id" data-couch-action="@routes.AgendaController.detail(userId = info.id)">@messages("customer.professional.list.page.item.btn.agenda")</button>
+                </p>
+                <div id="@info.id">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

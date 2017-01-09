@@ -11,8 +11,8 @@
                     <div class="col-lg-4">
                         <li class="list-group-item"><strong>@messages("customer.professional.list.page.item.cases"):</strong> @info._2._2.numberOfCases.getOrElse(0)</li>
                         <li class="list-group-item"><strong>@messages("customer.professional.list.page.item.years"):</strong> @info._2._2.yearsOfExperience.getOrElse(0)</li>
-                        <li class="list-group-item"><strong>@messages("customer.professional.list.page.item.years"):</strong> @info._2._2.numberOfRecommendations.getOrElse(0)</li>
-                        <li class="list-group-item"><strong>@messages("customer.professional.list.page.item.years"):</strong> @info._2._2.aboutMe.getOrElse("")</li>
+                        <li class="list-group-item"><strong>Number of Recommendations:</strong> @info._2._2.numberOfRecommendations.getOrElse(0)</li>
+                        <li class="list-group-item"><strong>About me:</strong> @info._2._2.aboutMe.getOrElse("")</li>
                     </div>
                     <div class="col-lg-4">
                     @info._2._2.avatarUrl.map{case (image) =>

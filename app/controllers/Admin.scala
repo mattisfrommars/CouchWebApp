@@ -125,6 +125,7 @@ class Admin @Inject()(val specialitiesRepository: SpecialityRepository,
     mapping(
       "id" -> optional(longNumber),
       "fullName" -> nonEmptyText(1, 50),
+      "rate" -> number,
       "isApproved" -> boolean,
       "userId" -> optional(text),
       "specialityId" -> optional(longNumber),
@@ -257,4 +258,6 @@ class Admin @Inject()(val specialitiesRepository: SpecialityRepository,
      _ <- partnerRepository.delete(id)
     } yield Redirect(routes.Admin.listPartnerApplication()).flashing("success" -> Messages("partner.remove.action.success"))
   }
+
+
 }

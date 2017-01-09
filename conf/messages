@@ -16,6 +16,7 @@ header.about = about
 header.contact = Contact
 header.specialties = Specialties
 header.doctors = Doctors
+header.partner = Partner
 
 user.info.title = Profile Information 
 
@@ -161,6 +162,9 @@ professional.session.view.page.header.actions.reschedule = Reschedule
 professional.session.view.page.header.actions.close = Close Session
 
 professional.session.view.page.btn.historic = Historic
+
+
+professional.expertise.form.rate = Rate Per Session
 
 ##########
 # Customer

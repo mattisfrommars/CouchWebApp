@@ -154,7 +154,7 @@ class SessionController @Inject()(
     * @param filter
     * @return
     */
-  def sessions(page: Int, orderBy: Int, filter: String,sessionStateP:Short) = silhouette.SecuredAction(WithRole[CookieAuthenticator](3)).async { implicit request =>
+  def sessions(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](3)).async { implicit request =>
     val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
       "UTC"
     }
@@ -163,11 +163,42 @@ class SessionController @Inject()(
       page = page,
       orderBy = orderBy,
       filter = ("%" + filter + "%"),
-      now = new Timestamp(System.currentTimeMillis()),
-      sessionState = sessionStateP
+      now = new Timestamp(System.currentTimeMillis())
     )
     result.map(sessions => Ok(views.html.session.customerSession(sessions, orderBy, filter, request.identity)))
   }
+
+
+  def sessionsHistoric(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](3)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listHistoric(timezone,
+      request.identity.userID.toString,
+      page = page,
+      orderBy = orderBy,
+      filter = ("%" + filter + "%"),
+      now = new Timestamp(System.currentTimeMillis())
+    )
+    result.map(sessions => Ok(views.html.session.customerSessionHistoric(sessions, orderBy, filter, request.identity)))
+  }
+
+  def sessionsCanceled(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](3)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listCanceled(timezone,
+      request.identity.userID.toString,
+      page = page,
+      orderBy = orderBy,
+      filter = ("%" + filter + "%"),
+      now = new Timestamp(System.currentTimeMillis())
+    )
+    result.map(sessions =>
+      Ok(views.html.session.customerSessionCanceled(sessions, orderBy, filter, request.identity)))
+  }
+
+
 
   def sessionsForProfessional(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](2)).async { implicit request =>
     val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
@@ -184,13 +215,84 @@ class SessionController @Inject()(
       Ok(views.html.session.professionalSession(sessions, orderBy, filter, request.identity)))
   }
 
+
+  def sessionsForProfessionalCanceled(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](2)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listForProfessionalCanceled(timezone = timezone,
+      userId = request.identity.userID.toString,
+      page = page,
+      orderBy = orderBy,
+      filter = ("%" + filter + "%"),
+      now = new Timestamp(System.currentTimeMillis())
+    )
+    result.map(sessions =>
+      Ok(views.html.session.professionalSessionCanceled(sessions, orderBy, filter, request.identity)))
+  }
+
+  def sessionsForProfessionalHistoric(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](2)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listForProfessionalHistoric(timezone = timezone,
+      userId = request.identity.userID.toString,
+      page = page,
+      orderBy = orderBy,
+      filter = ("%" + filter + "%"),
+      now = new Timestamp(System.currentTimeMillis())
+    )
+    result.map(sessions =>
+      Ok(views.html.session.professionalSessionHistoric(sessions, orderBy, filter, request.identity)))
+  }
+
+  def sessionsForProfessionalNotPayed(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](2)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listForProfessionalNotPayed(timezone = timezone,
+      userId = request.identity.userID.toString,
+      page = page,
+      orderBy = orderBy,
+      filter = ("%" + filter + "%"),
+      now = new Timestamp(System.currentTimeMillis())
+    )
+    result.map(sessions =>
+      Ok(views.html.session.professionalSessionNotPayed(sessions, orderBy, filter, request.identity)))
+  }
+
   def sessionsForAdmin(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](1)).async { implicit request =>
     val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
       "UTC"
     }
     val result = sessionRepository.listForAdmin(timezone, page = page, orderBy = orderBy, filter = ("%" + filter + "%"), now = new Timestamp(System.currentTimeMillis()))
-    result.map(sessions => Ok(views.html.session.customerSession(sessions, orderBy, filter, request.identity)))
+    result.map(sessions => Ok(views.html.admin.session.list(sessions, orderBy, filter, request.identity)))
   }
+
+  def sessionsForAdminHistoric(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](1)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listForAdminHistoric(timezone, page = page, orderBy = orderBy, filter = ("%" + filter + "%"), now = new Timestamp(System.currentTimeMillis()))
+    result.map(sessions => Ok(views.html.admin.session.sessionsHistoric(sessions, orderBy, filter, request.identity)))
+  }
+
+  def sessionsForAdminNotPayed(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](1)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listForAdminNotPayed(timezone, page = page, orderBy = orderBy, filter = ("%" + filter + "%"), now = new Timestamp(System.currentTimeMillis()))
+    result.map(sessions => Ok(views.html.admin.session.sessionsNotPayed(sessions, orderBy, filter, request.identity)))
+  }
+
+  def sessionsForAdminCanceled(page: Int, orderBy: Int, filter: String) = silhouette.SecuredAction(WithRole[CookieAuthenticator](1)).async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
+    val result = sessionRepository.listForAdminCanceled(timezone, page = page, orderBy = orderBy, filter = ("%" + filter + "%"), now = new Timestamp(System.currentTimeMillis()))
+    result.map(sessions => Ok(views.html.admin.session.sessionsCanceled(sessions, orderBy, filter, request.identity)))
+  }
+
 
   def session(id: Long) = silhouette.SecuredAction.async { implicit request =>
     val result = sessionRepository.findById(id)
@@ -214,20 +316,66 @@ class SessionController @Inject()(
     }
   }
 
-  def reschedule(id: Long) = play.mvc.Results.TODO
+  def reschedule(id: Long) = silhouette.SecuredAction.async { implicit request =>
+    val timezone = request.cookies.get("timezone").map { case (cookie) => cookie.value }.getOrElse {
+      "UTC"
+    }
 
-  def updateReschedule(id: Long) = play.mvc.Results.TODO
+    val result = sessionRepository.getRescheduleInfo(id,timezone)
+
+    result.map{
+      case Some((session,agenda,customer,professional,spe)) => {
+          Ok(views.html.session.reschedule(session,professional,request.identity))
+      }
+      case _ => NotFound
+    }
+  }
+
+  def updateReschedule(id: Long, agenda:Long) = silhouette.SecuredAction.async { implicit request =>
+    val result = sessionRepository.findById(id)
+
+    result.map {
+      case Some(session) => {
+        sessionRepository.update(session.id.get, session.copy(agendaEntryId = agenda))
+
+        agendaRepository.findById(session.agendaEntryId).map {
+          case (Some(a)) => {
+            agendaRepository.update(a.id.get, a.copy(id = Some(0l), isFree = true))
+          }
+          case _ => println("Not found")
+        }
+
+        agendaRepository.findById(agenda).map {
+          case (Some(a)) => {
+            agendaRepository.update(a.id.get, a.copy(isFree = false))
+          }
+          case _ => println("Not found")
+        }
+
+        request.identity.roleId match {
+          case Some(1) => Redirect(routes.SessionController.sessionsForAdmin()).flashing("success" -> "Session Reschedule")
+          case Some(2) => Redirect(routes.SessionController.sessionsForProfessional()).flashing("success" -> "Session Reschedule")
+          case _  => Redirect(routes.SessionController.sessions()).flashing("success" -> "Session Reschedule")
+        }
+      }
+      case _ => Redirect(routes.SessionController.sessionsForProfessional()).flashing("error" -> "Not Found")
+    }
+  }
 
   def cancelSession(id: Long) = silhouette.SecuredAction.async { implicit request =>
     val result = sessionRepository.findById(id)
 
     result.map {
       case (Some(s)) => {
-        sessionRepository.update(s.id.get, s.copy(sessionState = domain.SessionState.IS_CANCELED_BY_CUSTOMER))
+        request.identity.roleId match {
+          case Some(1) => sessionRepository.update(s.id.get, s.copy(sessionState = domain.SessionState.IS_CANCELED_BY_ADMIN))
+          case Some(2) => sessionRepository.update(s.id.get, s.copy(sessionState = domain.SessionState.IS_CANCELED_BY_PROFESSIONAL))
+          case _ => sessionRepository.update(s.id.get, s.copy(sessionState = domain.SessionState.IS_CANCELED_BY_CUSTOMER))
+        }
+
         agendaRepository.findById(s.agendaEntryId).map {
           case (Some(a)) => {
-            agendaRepository.delete(a.id.get)
-            agendaRepository.insert(a.copy(id = Some(0l), isFree = true))
+            agendaRepository.update(a.id.get, a.copy(isFree = true))
           }
           case _ => println("Not found")
         }
@@ -260,10 +408,24 @@ class SessionController @Inject()(
 
     result.map {
       case Some(session) => {
+        sessionRepository.update(session.id.get, session.copy(sessionState = domain.SessionState.IS_AFTER_SESSION))
+        Redirect(routes.SessionController.sessionsForProfessional()).flashing("success" -> "Session closed")
+      }
+      case _ => Redirect(routes.SessionController.sessionsForProfessional()).flashing("error" -> "Not Found")
+    }
+  }
+
+  def payAndCloseSession(id:Long) = silhouette.SecuredAction(WithRole[DefaultEnv#A](1)).async { implicit request =>
+    val result = sessionRepository.findById(id)
+
+    result.map {
+      case Some(session) => {
         sessionRepository.update(session.id.get, session.copy(sessionState = domain.SessionState.IS_CLOSED))
         Redirect(routes.SessionController.sessionsForProfessional()).flashing("success" -> "Session closed")
       }
       case _ => Redirect(routes.SessionController.sessionsForProfessional()).flashing("error" -> "Not Found")
     }
   }
+
+
 }

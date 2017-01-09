@@ -32,6 +32,7 @@
                         <li><a href="@routes.Application.index">@Messages("home")</a></li>
                         <li><a href="@routes.SpecialityController.index()">@Messages("header.specialties")</a></li>
                         <li><a href="@routes.ProfessionalController.index()">@Messages("header.doctors")</a></li>
+                        <li><a href="@routes.PartnerController.index()">@Messages("header.partner")</a></li>
                         <li><a href="@routes.Application.about">@Messages("header.about")</a></li>
                         <li><a href="@routes.Application.contact">@Messages("header.contact")</a></li>
                     </ul>
@@ -96,6 +97,17 @@
         <script src="@routes.Assets.at("javascripts/moment.js")"></script>
         <script src="@routes.Assets.at("javascripts/moment-timezone.js")"></script>
         <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                if (!document.cookie.indexOf("timezone") >= 0) {
+                    // set a new cookie
+                    expiry = new Date();
+                    expiry.setTime(expiry.getTime()+(10*60*1000)); // Ten minutes
+                    // Date()'s toGMTSting() method will format the date correctly for a cookie
+                    document.cookie = "timezone="+moment.tz.guess()+"; expires=" + expiry.toGMTString();
+                }
+            });
+        </script>
         @scripts
     </body>
 </html>

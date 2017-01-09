@@ -3,7 +3,7 @@
 * Helper generating navigation links *
 ****************************************@
 @link(newPage: Int, newOrderBy: Option[Int] = None) = @{
-    routes.SessionController.sessions(newPage, newOrderBy.map { orderBy =>
+    routes.SessionController.sessionsCanceled(newPage, newOrderBy.map { orderBy =>
         if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     }.getOrElse(currentOrderBy), currentFilter)
 }
@@ -29,19 +29,19 @@
                 <div class="col-md-12">
                     <ul class="list-inline text-right">
                         <li>
-                            <a class="btn btn-primary active" id="add" href="@routes.SessionController.sessions()">
+                            <a class="btn btn-primary " id="add" href="@routes.SessionController.sessions()">
                                 Approaching</a>
                         </li>
                         <li>
-                            <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsCanceled()">
-                            Canceled</a>
+                            <a class="btn btn-primary active" id="add" href="@routes.SessionController.sessionsCanceled()">
+                                Canceled</a>
                         </li>
                         <li>
                             <a class="btn btn-primary" id="add" href="@routes.SessionController.sessionsHistoric()">
                                 Historic</a>
                         </li>
                         <li>
-                            <form action="@routes.SessionController.sessions()" class="form-inline">
+                            <form action="@routes.SessionController.sessionsCanceled()" class="form-inline">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="@Messages("search.name")"/>
@@ -83,26 +83,12 @@
                                 </td>
                                 <td>
                                     <ul class="list-inline">
-                                    @if(!(session.sessionState == domain.SessionState.IS_AFTER_SESSION)) {
-                                        @if(session.sessionState == domain.SessionState.IS_IN_SESSION) {
-                                            <li class="list-group-item">
-                                                <a href="@routes.SessionController.session(session.id.get)" class="btn btn-sm">@messages("customer.session.view.page.header.actions.go")</a>
-                                            </li>
-                                        } else {
-                                            @if(session.isCancelable) {
-                                                <li class="list-group-item">
-                                                    <a href="@routes.SessionController.reschedule(session.id.getOrElse(0))" class="btn btn-sm">@messages("customer.session.view.page.header.actions.reschedule")</a>
-                                                </li>
-                                            }
-                                            <li class="list-group-item">
-                                                <a href="@routes.SessionController.cancelSession(session.id.get)" class="btn btn-sm">@messages("customer.session.view.page.header.actions.cancel")</a>
-                                            </li>
-
-                                        }
-                                    } else {
+                                    @if(session.sessionState != domain.SessionState.IS_CANCELED_BY_CUSTOMER) {
                                         <li class="list-group-item">
-                                            <a href="#" class="btn btn-sm">@messages("customer.session.view.page.header.actions.cancel")</a>
+                                            <a href="@routes.SessionController.reschedule(session.id.getOrElse(0))" class="btn btn-sm">@messages("customer.session.view.page.header.actions.reschedule")</a>
                                         </li>
+                                    } else {
+                                        Session was cancel
                                     }
                                     </ul>
                                 </td>

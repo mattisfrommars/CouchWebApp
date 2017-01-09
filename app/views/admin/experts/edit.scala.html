@@ -38,6 +38,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="inputName">@messages("professional.expertise.form.rate")</label>
+                    <input name="@applicationRegisterForm("rate").name" value="@applicationRegisterForm("rate").value" type="text" class="form-control" id="inputFullName" placeholder="" readonly>
+                    @for(error <- applicationRegisterForm.errors("rate")) {
+                        <span class="error">
+                        @Messages(error.message)
+                        </span>
+                    }
+                </div>
+
+                <div class="form-group">
                     <label class="checkbox-inline">
                         <input name="@applicationRegisterForm("isApproved").name" value="true" type="checkbox" id="inlineIsAproved" value="Aprovar">
                         @messages("admin.speciality.application.new.form.approve")

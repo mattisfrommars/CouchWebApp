@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     @userGroup._2.fullName.map{ name =>
-                                        <h3>@name</h3>
+                                    <h3><a href="@routes.ProfessionalController.profile(userGroup._1.id.getOrElse(0))">@name</a></h3>
                                     }.getOrElse{
                                         <h3>Sorry something is wrong</h3>
                                     }

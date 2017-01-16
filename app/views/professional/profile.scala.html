@@ -1,33 +1,50 @@
-@(info:(Seq[(domain.Expert,domain.Speciality)],(domain.DBUser,domain.Profile)), user: Option[domain.User])(implicit request: RequestHeader, flash: Flash, messages: Messages, webJarAssets: WebJarAssets)
+@(info: (Seq[(domain.Expert, domain.Speciality)], (domain.DBUser, domain.Profile)), user: Option[domain.User])(implicit request: RequestHeader, flash: Flash, messages: Messages, webJarAssets: WebJarAssets)
 
 
-@main("", user){
-    <div class="container" style="margin-top: 50px;">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h2>@info._2._1.fullName.get</h2>
-                <hr/>
-                <div class="col-md-12">
-                    <div class="col-lg-4">
-                        <li class="list-group-item"><strong>@messages("customer.professional.list.page.item.cases"):</strong> @info._2._2.numberOfCases.getOrElse(0)</li>
-                        <li class="list-group-item"><strong>@messages("customer.professional.list.page.item.years"):</strong> @info._2._2.yearsOfExperience.getOrElse(0)</li>
-                        <li class="list-group-item"><strong>Number of Recommendations:</strong> @info._2._2.numberOfRecommendations.getOrElse(0)</li>
-                        <li class="list-group-item"><strong>About me:</strong> @info._2._2.aboutMe.getOrElse("")</li>
-                    </div>
-                    <div class="col-lg-4">
-                    @info._2._2.avatarUrl.map{case (image) =>
-                    <img src="@image" width="400px" height="300px" class="img-circle img-responsive">
-                    }.getOrElse{
+@main("", user) {
+    <div class="services wthree-4">
+        <div class="container">
+            <h2>@info._2._1.fullName.get</h2>
+            <hr/>
+
+
+            <div class="col-md-12" style="border-bottom: 1px solid green;
+                padding: 25px;">
+                <div class="col-md-4 service-grid agile-4">
+                    <div class="history-grid-image">
+                    @info._2._2.avatarUrl.map { case (image) =>
+
+                    <img src="@image" class="img-responsive zoom-img">
+
+                    }.getOrElse {
                         <img src="@routes.Assets.at("images/user.png")" class="img-circle img-responsive">
                         }
                     </div>
-                    <div class="col-lg-4">
-                        @info._1.map{ case(e,s) =>
-                            @s.name
-                        }
-                    </div>
                 </div>
+                <div class="col-md-8 service-grid agile-4">
+                    <h4>Lorem Ipsum Dolor</h4>
+                    <hr/>
+                    <div class="text-center">
+                        <ul class="list-inline">
+                            <li><strong>@messages("customer.professional.list.page.item.cases")
+                                :</strong> @info._2._2.numberOfCases.getOrElse(0)</li>
+                            <li><strong>@messages("customer.professional.list.page.item.years")
+                                :</strong> @info._2._2.yearsOfExperience.getOrElse(0)</li>
+                            <li><strong>@messages("customer.professional.list.page.item.fields")
+                                :</strong> @info._1.map { case (e, s) =>
+                                @s.name
+                            }</li>
+                        </ul>
+                    </div>
+                    <hr/>
+                    <p>@info._2._2.aboutMe.getOrElse("")</p>
+                    <p class="text-center" style="margin-top: 35px;">
+                        <button class="btn btn-default">Consultar Horario</button>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
             </div>
+
         </div>
     </div>
 }

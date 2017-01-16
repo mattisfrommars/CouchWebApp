@@ -12,11 +12,13 @@ reset.password.title = Couch - Reset Password
 change.password.title = Couch - Change Password
 activate.account.title = Couch - Activate Account
 
-header.about = about
+header.about = About
 header.contact = Contact
 header.specialties = Specialties
-header.doctors = Doctors
-header.partner = Partner
+header.doctors = Professionals
+header.otherslikns = Useful links
+header.partner = Become Partner
+header.termservices = Term & Services
 
 user.info.title = Profile Information 
 
@@ -99,6 +101,91 @@ yahoo = Yahoo
 
 
 ##########
+# Index
+##########
+
+index.banner.slider.title1 = In your place
+index.banner.slider.description1 = Etiam condimentum mi nec tortor euismod, id lobortis odio dictum. Cras suscipit elit eget mi volutpat facilisis.
+
+index.banner.slider.title2 = In your place
+index.banner.slider.description2 = Etiam condimentum mi nec tortor euismod, id lobortis odio dictum. Cras suscipit elit eget mi volutpat facilisis.
+
+index.banner.slider.title3 = In your place
+index.banner.slider.description3 = Etiam condimentum mi nec tortor euismod, id lobortis odio dictum. Cras suscipit elit eget mi volutpat facilisis.
+
+index.mission.title = Our Mission
+index.mission.description = Etiam condimentum mi nec tortor euismod, id lobortis odio dictum. Cras suscipit elit eget mi volutpat facilisis.
+
+index.faq.answer1 = Why us
+index.faq.response1 = we are
+index.faq.answer2 = Why us
+index.faq.response2 = we are
+index.faq.answer3 = Why us
+index.faq.response3 = we are
+index.faq.answer4 = Why us
+index.faq.response4 = we are
+index.faq.answer5 = Why us
+index.faq.response5 = we are
+index.faq.answer6 = Why us
+index.faq.response6 = we are
+
+index.steps.title = Steps
+index.steps.subtitle = Fast steps
+
+index.steps.first.title = Pick your professional
+index.steps.first.subtitle = We have the most prepared professionals for you
+
+index.steps.second.title = Pick your Date
+index.steps.second.subtitle = We have the most prepared professionals for you
+
+index.steps.third.title = Have your session
+index.steps.third.subtitle = We have the most prepared professionals for you
+
+index.services.title = Our Services
+
+index.services.first.title = Psychology
+index.services.first.description = Psychology is the study of behavior and mind
+
+index.services.second.title = Anatomy
+index.services.second.description = Anatomy is the branch of biology concerned with the study of the structure of organisms
+
+
+##########
+# About Us
+##########
+
+about.left.title = Why choose us?
+
+about.enum.title1 = 1.We are
+about.enum.subtitle1 = because we are
+
+about.enum.title2 = 2.We are
+about.enum.subtitle2 = because we are
+
+about.enum.title3 = 3.We are
+about.enum.subtitle3 = because we are
+
+about.enum.title4 = 4.We are
+about.enum.subtitle4 = because we are
+
+about.right.title = About Us
+about.right.subtitle = Subtitle
+about.right.description = Description goes here
+
+about.testimonials.title = Testimonials
+
+about.testimonials.enum.description1 = Nice service
+about.testimonials.enum.name1 = Einstien
+
+about.testimonials.enum.description2 = Nice service
+about.testimonials.enum.name2 = Einstien
+
+about.testimonials.enum.description3 = Nice service
+about.testimonials.enum.name3 = Einstien
+
+
+
+##########
 # Pagination
 ##########
 pagination.previous = Previous
@@ -165,6 +252,15 @@ professional.session.view.page.btn.historic = Historic
 
 
 professional.expertise.form.rate = Rate Per Session
+
+professional.profile.edit.page.title = Couch - Edit Profile
+professional.profile.edit.form.title = Edit Profile
+professional.profile.edit.form.field1 = Number of cases
+professional.profile.edit.form.field2 = Years Of Experience
+professional.profile.edit.form.field3 = About Me
+professional.profile.edit.form.submit = Edit
+
+professional.profile.edit.form.ok = Edit successful 
 
 ##########
 # Customer
@@ -293,7 +389,7 @@ footer.left.description = Etiam condimentum mi nec tortor euismod, id lobortis o
 
 footer.center.contact = Contact Info
 footer.center.address = Av of statue
-footer.center.email = couch@couch.pt
-footer.center.cellphone = 918882233
+footer.center.email = info@example.com
+footer.center.cellphone = Telephone: 918882233
 
 footer.right.title = Navigation

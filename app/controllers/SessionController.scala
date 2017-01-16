@@ -58,7 +58,10 @@ class SessionController @Inject()(
 
   def createOpenTokSession: String = {
     val opentok = createOpenTokInstance
-    val session = opentok.createSession()
+    val prop = new SessionProperties.Builder()
+      .mediaMode(MediaMode.ROUTED)
+      .build();
+    val session = opentok.createSession(prop)
     session.getSessionId()
   }
 

@@ -2,7 +2,238 @@
 
 @main(Messages("home.title"), user) {
 
+    <div class="banner">
+        <div class="container">
+            <div class="banner-info">
+                <section class="slider">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <div class="banner-info1">
+                                    <h1>@messages("index.banner.slider.title1")</h1>
+                                    <p>@messages("index.banner.slider.description3")</p>
+                                </div>
+                        <li>
+                            <div class="banner-info1">
+                                <h1>@messages("index.banner.slider.title2")</h1>
+                                <p>@messages("index.banner.slider.description3")</p>
+                            </div>
+                        </li>
+                            <li>
+                                <div class="banner-info1">
+                                    <h1>@messages("index.banner.slider.title3")</h1>
+                                    <p>@messages("index.banner.slider.description3")</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
 
+                    <!-- FlexSlider -->
+                <script src="@routes.Assets.at("javascripts/jquery.flexslider.js")"></script>
+                <script type="text/javascript">
+                        $(function () {
+
+                        });
+                        $(window).load(function () {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                start: function (slider) {
+                                    $('body').removeClass('loading');
+                                }
+                            });
+                        });
+                </script>
+                    <!-- FlexSlider -->
+            </div>
+        </div>
+    </div>
+        <!-- //Header -->
+        <!-- //Banner -->
+        <!-- w3l -->
+    <div class="w3l">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center w3ls">
+                    <h3>@messages("index.mission.title")</h3>
+                    <p class="p1">
+                        @messages("index.mission.description")
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+        <!-- //w3l -->
+        <!-- agile -->
+    <div class="agile">
+        <div class="container">
+            <h3>FAQ</h3>
+            <div class="about-top">
+                <div class="col-md-5 ab-text">
+                    <img src="images/10.jpg" alt="Corporate image" class="img-responsive">
+                </div>
+                <div class="col-md-7 info">
+                    <div class="accordion">
+                        <div class="accordion-section">
+                            <h5><a class="accordion-section-title" href="#accordion-1">
+                                @messages("index.faq.answer1")
+                                <i class="glyphicon glyphicon-chevron-down"></i>
+                            </a></h5>
+                            <div id="accordion-1" class="accordion-section-content" style="display: none;">
+                                <p>@messages("index.faq.response1")</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-section">
+                            <h5><a class="accordion-section-title" href="#accordion-2">
+                                @messages("index.faq.answer2")
+                                <i class="glyphicon glyphicon-chevron-down"></i>
+                            </a></h5>
+                            <div id="accordion-2" class="accordion-section-content" style="display: none;">
+                                <p>>@messages("index.faq.response2")</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-section">
+                            <h5><a class="accordion-section-title" href="#accordion-3">
+                                @messages("index.faq.answer3")
+                                <i class="glyphicon glyphicon-chevron-down"> </i>
+                            </a></h5>
+                            <div id="accordion-3" class="accordion-section-content" style="display: none;">
+                                <p>>@messages("index.faq.response3")</p>
+                            </div>
+                        </div>
+                        <div class="accordion-section">
+                            <h5><a class="accordion-section-title" href="#accordion-4">
+                                @messages("index.faq.answer4")
+                                <i class="glyphicon glyphicon-chevron-down"> </i>
+                            </a></h5>
+                            <div id="accordion-4" class="accordion-section-content" style="display: none;">
+                                <p>>@messages("index.faq.response4")</p>
+                            </div>
+                        </div>
+                        <div class="accordion-section">
+                            <h5><a class="accordion-section-title" href="#accordion-5">
+                                @messages("index.faq.answer5")
+                                <i class="glyphicon glyphicon-chevron-down"> </i>
+                            </a></h5>
+                            <div id="accordion-5" class="accordion-section-content" style="display: none;">
+                                <p>>@messages("index.faq.response5")</p>
+                            </div>
+                        </div>
+                        <div class="accordion-section">
+                            <h5><a class="accordion-section-title" href="#accordion-6">
+                                @messages("index.faq.answer6")
+                                <i class="glyphicon glyphicon-chevron-down"> </i>
+                            </a></h5>
+                            <div id="accordion-6" class="accordion-section-content" style="display: none;">
+                                <p>>@messages("index.faq.response6")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                            jQuery(document).ready(function () {
+                                function close_accordion_section() {
+                                    jQuery('.accordion .accordion-section-title').removeClass('active');
+                                    jQuery('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+                                }
+
+                                jQuery('.accordion-section-title').click(function (e) {
+                                    // Grab current anchor value
+                                    var currentAttrValue = jQuery(this).attr('href');
+
+                                    if (jQuery(e.target).is('.active')) {
+                                        close_accordion_section();
+                                    } else {
+                                        close_accordion_section();
+
+                                        // Add active class to section title
+                                        jQuery(this).addClass('active');
+                                        // Open up the hidden content panel
+                                        jQuery('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
+                                    }
+
+                                    e.preventDefault();
+                                });
+                            });
+                    </script>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+        <!-- //agile -->
+        <!-- w3l -->
+    <div class="w3l steps">
+        <div class="container">
+            <h3 class="head">@messages("index.steps.title")</h3>
+            <p class="urna">@messages("index.steps.subtitle")</p>
+            <div class="wthree_steps_grids">
+                <div class="col-md-4 wthree_steps_grid">
+                    <div class="wthree_steps_grid1 wthree_steps_grid1_after">
+                        <div class="wthree_steps_grid1_sub">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <h4>@messages("index.steps.first.title")</h4>
+                    <p>@messages("index.steps.first.subtitle")</p>
+                </div>
+                <div class="col-md-4 wthree_steps_grid">
+                    <div class="wthree_steps_grid1 wthree_steps_grid1_after">
+                        <div class="wthree_steps_grid1_sub">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <h4>@messages("index.steps.second.title")</h4>
+                    <p>@messages("index.steps.second.subtitle")</p>
+                </div>
+                <div class="col-md-4 wthree_steps_grid">
+                    <div class="wthree_steps_grid1">
+                        <div class="wthree_steps_grid1_sub">
+                            <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <h4>@messages("index.steps.third.title")</h4>
+                    <p>@messages("index.steps.third.subtitle")</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+        <!-- //w3l -->
+
+        <!-- wthree -->
+    <div class="wthree" style="background-color: white;">
+        <div class="container">
+            <h3>@messages("index.services.title")</h3>
+            <div class="services-grids">
+                <div class="col-md-6 services-grid-left">
+                    <div class="col-xs-4 services-grid-left1">
+                        <i class="hovicon effect-2 sub-a"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
+                    </div>
+                    <div class="col-xs-8 services-grid-left2">
+                        <h4>@messages("index.services.first.title")</h4>
+                        <p>@messages("index.services.first.description")</p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="col-md-6 services-grid-right">
+                    <div class="col-xs-4 services-grid-left1">
+                        <i class="hovicon effect-2 sub-a"><span class="glyphicon glyphicon-heart pp" aria-hidden="true"></span></i>
+                    </div>
+                    <div class="col-xs-8 services-grid-left2">
+                        <h4>@messages("index.services.second.title")</h4>
+                        <p>@messages("index.services.second.description")</p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+        <!-- //wthree -->
 
 }
 

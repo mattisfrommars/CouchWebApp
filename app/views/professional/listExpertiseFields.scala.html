@@ -13,7 +13,7 @@
     * Helper generating table headers *
     ***********************************@
 @header(orderBy: Int, title: String) = {
-    <th class="col@orderBy header @if(scala.math.abs(currentOrderBy) == orderBy) @{
+    <th class="col@orderBy  @if(scala.math.abs(currentOrderBy) == orderBy) @{
         if(currentOrderBy < 0) "headerSortDown" else "headerSortUp"
     }">
         <a href="@link(0, Some(orderBy))">@title</a>
@@ -21,9 +21,8 @@
 }
 
 @main(messages("professional.list.page.title"), Some(user)) {
-    <div class="container" style="margin-top: 50px;">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+    <div class="services wthree-4">
+        <div class="container">
 
                 <h1>@messages("professional.expertise.fields.list")</h1>
                 <hr/>
@@ -32,7 +31,7 @@
                 <div class="col-md-12">
                     <ul class="list-inline text-right">
                         <li>
-                            <a class="btn btn-primary" id="add" href="@routes.ProfessionalController.newApplication()">
+                            <a class="btn btn-default btn-block" id="add" href="@routes.ProfessionalController.newApplication()">
                                 @messages("professional.expertise.fields.btn.new")</a>
                         </li>
                         <li>
@@ -116,7 +115,7 @@
 
                 }
                 </div>
-            </div>
+
         </div>
     </div>
 

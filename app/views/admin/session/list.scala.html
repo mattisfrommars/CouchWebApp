@@ -12,7 +12,7 @@
     * Helper generating table headers *
     ***********************************@
 @header(orderBy: Int, title: String) = {
-    <th class="col@orderBy header @if(scala.math.abs(currentOrderBy) == orderBy) @{
+    <th class="col@orderBy  @if(scala.math.abs(currentOrderBy) == orderBy) @{
         if(currentOrderBy < 0) "headerSortDown" else "headerSortUp"
     }">
         <a href="@link(0, Some(orderBy))">@title</a>
@@ -20,8 +20,8 @@
 }
 
 @main(Messages("customer.session.view.page.title"), Some(user)) {
-    <div class="container" style="margin-top: 50px;">
-        <div class="row">
+    <div class="services wthree-4">
+        <div class="container">
             <div class="col-md-8 col-md-offset-2">
 
                 <h1>@Messages("customer.session.view.page.header")</h1>
@@ -124,20 +124,20 @@
                     <ul class="pager">
                         @currentPage.prev.map { page =>
                         <li class="previous">
-                            <a href="@link(page)">&larr; Previous</a>
+                            <a href="@link(page)">&larr; @messages("pagination.previous")</a>
                         </li>
                         }.getOrElse {
                             <li class="previous disabled">
-                                <a>&larr; Anterior</a>
+                                <a>&larr; @messages("pagination.previous")</a>
                             </li>
                         }
                         @currentPage.next.map { page =>
                         <li class="next">
-                            <a href="@link(page)">Next &rarr;</a>
+                            <a href="@link(page)">@messages("pagination.next") &rarr;</a>
                         </li>
                         }.getOrElse {
                             <li class="next disabled">
-                                <a>Seguinte &rarr;</a>
+                                <a>@messages("pagination.next") &rarr;</a>
                             </li>
                         }
                     </ul>

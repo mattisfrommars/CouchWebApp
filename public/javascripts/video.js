@@ -80,4 +80,9 @@ $(function () {
             });
     });
 
+    document.getElementById("disconnectBtn").addEventListener("click",function (e) {
+        e.preventDefault();
+       disconnect();
+    });
+
 });

@@ -82,13 +82,13 @@ class SessionRepository @Inject()(protected val dbConfigProvider: DatabaseConfig
   }
 
   /** Return a page of (sessions) */
-  def list(timezone: String, userId: String, page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", now: Timestamp, sessionState: Short = domain.SessionState.WAITING_FOR_START): Future[Page[(domain.SessionView)]] = {
+  def list(timezone: String, userId: String, page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", now: Timestamp, sessionState: Short = domain.SessionState.IS_IN_SESSION): Future[Page[(domain.SessionView)]] = {
 
     val offset = pageSize * page
 
     val query =
       (for {
-        session <- sessions if session.customerId === userId if session.sessionState === sessionState
+        session <- sessions if session.customerId === userId if session.sessionState <= sessionState
         customer <- users if customer.id === session.customerId
         (((professional, agenda), _), spe) <- users join agendas on (_.id === _.userId) join experts on (_._1.id === _.userId) join specialities on (_._2.specialityId === _.id) if professional.id === session.professionalId && agenda.id === session.agendaEntryId && spe.id === session.specialityId
       } yield (session, agenda, customer, professional, spe))
@@ -200,13 +200,13 @@ class SessionRepository @Inject()(protected val dbConfigProvider: DatabaseConfig
 
 
   /** Return a page of (sessions) */
-  def listForProfessional(timezone: String, userId: String, page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", now: Timestamp, sessionState: Short = domain.SessionState.WAITING_FOR_START): Future[Page[(domain.SessionView)]] = {
+  def listForProfessional(timezone: String, userId: String, page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", now: Timestamp, sessionState: Short = domain.SessionState.IS_IN_SESSION): Future[Page[(domain.SessionView)]] = {
 
     val offset = pageSize * page
 
     val query =
       (for {
-        session <- sessions if session.professionalId === userId if session.sessionState === sessionState
+        session <- sessions if session.professionalId === userId if session.sessionState <= sessionState
         customer <- users if customer.id === session.customerId
         (((professional, agenda), _), spe) <- users join agendas on (_.id === _.userId) join experts on (_._1.id === _.userId) join specialities on (_._2.specialityId === _.id) if professional.id === session.professionalId && agenda.id === session.agendaEntryId && spe.id === session.specialityId
       } yield (session, agenda, customer, professional, spe))
@@ -358,13 +358,13 @@ class SessionRepository @Inject()(protected val dbConfigProvider: DatabaseConfig
 
 
   /** Return a page of (sessions) */
-  def listForAdmin(timezone: String, page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", now: Timestamp, sessionState: Short = domain.SessionState.WAITING_FOR_START): Future[Page[(domain.SessionView)]] = {
+  def listForAdmin(timezone: String, page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", now: Timestamp, sessionState: Short = domain.SessionState.IS_IN_SESSION): Future[Page[(domain.SessionView)]] = {
 
     val offset = pageSize * page
 
     val query =
       (for {
-        session <- sessions if session.sessionState === sessionState
+        session <- sessions if session.sessionState <= sessionState
         customer <- users if customer.id === session.customerId
         (((professional, agenda), _), spe) <- users join agendas on (_.id === _.userId) join experts on (_._1.id === _.userId) join specialities on (_._2.specialityId === _.id) if professional.id === session.professionalId && agenda.id === session.agendaEntryId && spe.id === session.specialityId
       } yield (session, agenda, customer, professional, spe))

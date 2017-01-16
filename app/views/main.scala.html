@@ -1,76 +1,90 @@
-@(title: String, user: Option[domain.User] = None,scripts: Html = Html(""))(content: Html)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+@(title: String, user: Option[domain.User] = None, scripts: Html = Html(""))(content: Html)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
 
 <!DOCTYPE html>
 
 <html>
     <head>
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/flexslider.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
             <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
             <![endif]-->
+            <!-- Web-Fonts -->
+        <link href='//fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
-        <header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Header -->
+        <div class="header">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">@Messages("toggle.navigation")</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="@routes.Application.index">Couch</a>
-                </div>
-                <nav class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="@routes.Application.index">@Messages("home")</a></li>
-                        <li><a href="@routes.SpecialityController.index()">@Messages("header.specialties")</a></li>
-                        <li><a href="@routes.ProfessionalController.index()">@Messages("header.doctors")</a></li>
-                        <li><a href="@routes.PartnerController.index()">@Messages("header.partner")</a></li>
-                        <li><a href="@routes.Application.about">@Messages("header.about")</a></li>
-                        <li><a href="@routes.Application.contact">@Messages("header.contact")</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                    @user.map { u =>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@u.firstName <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @if(u.roleId == Some(1l)) {
-                                <li><a href="@routes.Admin.listSpecialities()">@messages("admin.home.nav.dropdown.specialities.title")</a></li>
-                                <li><a href="@routes.Admin.listSpecialitiesApplications()">@messages("admin.home.nav.dropdown.professionals.title")</a></li>
-                                <li><a href="@routes.SessionController.sessionsForAdmin()">@messages("admin.home.nav.dropdown.sessions.title")</a></li>
-                                <li><a href="@routes.Admin.listPartnerApplication()">@messages("admin.home.nav.dropdown.partner.title")</a></li>
-                            } else {
-                                @if(u.roleId == Some(2l)) {
-                                    <li><a href="@routes.AgendaController.index()">@messages("professional.nav.dropdown.agenda")</a></li>
-                                    <li><a href="@routes.ProfessionalController.listApplicationExpertise()">@messages("professional.nav.dropdown.applications")</a></li>
-                                    <li><a href="@routes.SessionController.sessionsForProfessional()">@messages("professional.nav.dropdown.sessions")</a></li>
-                                    <li><a href="@routes.ProfessionalController.professionalProfile()">@messages("professional.nav.dropdown.profile")</a></li>
-                                } else {
-                                    <li><a href="@routes.SessionController.sessions()">@messages("customer.nav.dropdown.sessions")</a></li>
+                    <!-- Navbar -->
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="@routes.Application.index">Couch</a>
+                        </div>
+
+                        <div class="navbar-collapse collapse hover-effect" id="navbar">
+                            <ul>
+                                <li><a href="@routes.Application.index">@Messages("home")</a></li>
+                                <li><a href="@routes.Application.about"><span data-hover="@Messages("header.about")">@Messages("header.about")</span></a></li>
+                                <li><a href="@routes.ProfessionalController.index()"><span data-hover="@Messages("header.doctors")">@Messages("header.doctors")</span></a></li>
+                                <li><a href="@routes.Application.contact"><span data-hover="@Messages("header.contact")">@Messages("header.contact")</span></a></li>
+                                @user.map { u =>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@u.firstName <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        @if(u.roleId == Some(1l)) {
+                                            <li><a href="@routes.Admin.listSpecialities()">@messages("admin.home.nav.dropdown.specialities.title")</a></li>
+                                            <li><a href="@routes.Admin.listSpecialitiesApplications()">@messages("admin.home.nav.dropdown.professionals.title")</a></li>
+                                            <li><a href="@routes.SessionController.sessionsForAdmin()">@messages("admin.home.nav.dropdown.sessions.title")</a></li>
+                                            <li><a href="@routes.Admin.listPartnerApplication()">@messages("admin.home.nav.dropdown.partner.title")</a></li>
+                                        } else {
+                                            @if(u.roleId == Some(2l)) {
+                                                <li><a href="@routes.AgendaController.index()">@messages("professional.nav.dropdown.agenda")</a></li>
+                                                <li><a href="@routes.ProfessionalController.listApplicationExpertise()">@messages("professional.nav.dropdown.applications")</a></li>
+                                                <li><a href="@routes.SessionController.sessionsForProfessional()">@messages("professional.nav.dropdown.sessions")</a></li>
+                                                <li><a href="@routes.ProfessionalController.professionalProfile()">@messages("professional.nav.dropdown.profile")</a></li>
+                                            } else {
+                                                <li><a href="@routes.SessionController.sessions()">@messages("customer.nav.dropdown.sessions")</a></li>
+                                            }
+                                        }
+                                    <li role="separator" class="divider"></li>
+                                        @if(u.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
+                                            <li><a href="@routes.ChangePasswordController.view">@Messages("change.password")</a></li>
+                                        }
+                                    <li><a href="@routes.Application.signOut">@Messages("sign.out")</a></li>
+                                    </ul>
+                                </li>
+                                }.getOrElse {
+                                    <li><a href="@routes.SignInController.view">@Messages("sign.in")</a></li>
+                                    <li><a href="@routes.SignUpController.view">@Messages("sign.up")</a></li>
                                 }
-                            }
-                        <li role="separator" class="divider"></li>
-                            @if(u.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
-                                <li><a href="@routes.ChangePasswordController.view">@Messages("change.password")</a></li>
-                            }
-                        <li><a href="@routes.Application.signOut">@Messages("sign.out")</a></li>
-                        </ul>
-                    </li>
-                    }.getOrElse {
-                        <li><a href="@routes.SignInController.view">@Messages("sign.in")</a></li>
-                        <li><a href="@routes.SignUpController.view">@Messages("sign.up")</a></li>
-                    }
-                    </ul>
+                            </ul>
+                        </div>
+                    </div>
                 </nav>
+                    <!-- //Navbar -->
             </div>
-        </header>
+        </div>
+
         @request.flash.get("error").map { msg =>
             <div class="col-md-6 col-md-offset-3 alert alert-danger">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -90,23 +104,60 @@
             </div>
         }
         @content
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+
+
+            <!-- Footer -->
+        <div class="footer">
+            <div class="container">
+                <div class="footer-info text-center">
+                    <div class="col-md-4 col-sm-4">
+                        <h4>@messages("header.otherslikns")</h4>
+                        <ul>
+                            <li><a href="@routes.PartnerController.index()">@messages("header.partner")</a></li>
+                            <li><a href="#">@messages("header.termservices")</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4 footer-info-grid address">
+                        <h4>@messages("footer.center.contact")</h4>
+                        <address>
+                            <ul>
+                                <li>@messages("footer.center.address")</li>
+                                <li>@messages("footer.center.cellphone")</li>
+                                <li>Email: <a class="mail" href="@messages("footer.center.email")">@messages("footer.center.email")</a></li>
+                            </ul>
+                        </address>
+                    </div>
+                    <div class="col-md-4 col-sm-4 footer-info-grid social">
+                        <h4>Follow Us</h4>
+                        <ul>
+                            <li><a href="#"><span class="fa"> </span></a></li>
+                            <li><a href="#"><span class="tw"> </span></a></li>
+                            <li><a href="#"><span class="g"> </span></a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2017 Couch. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+            <!-- //Footer -->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script src="@routes.Assets.at("javascripts/zxcvbnShim.js")"></script>
         <script src="@routes.Assets.at("javascripts/moment.js")"></script>
         <script src="@routes.Assets.at("javascripts/moment-timezone.js")"></script>
-        <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
         <script type="text/javascript">
-            $(function(){
-                if (!document.cookie.indexOf("timezone") >= 0) {
-                    // set a new cookie
-                    expiry = new Date();
-                    expiry.setTime(expiry.getTime()+(10*60*1000)); // Ten minutes
-                    // Date()'s toGMTSting() method will format the date correctly for a cookie
-                    document.cookie = "timezone="+moment.tz.guess()+"; expires=" + expiry.toGMTString();
-                }
-            });
+                $(function () {
+                    if (!document.cookie.indexOf("timezone") >= 0) {
+                        // set a new cookie
+                        expiry = new Date();
+                        expiry.setTime(expiry.getTime() + (10 * 60 * 1000)); // Ten minutes
+                        // Date()'s toGMTSting() method will format the date correctly for a cookie
+                        document.cookie = "timezone=" + moment.tz.guess() + "; expires=" + expiry.toGMTString();
+                    }
+                });
         </script>
         @scripts
     </body>

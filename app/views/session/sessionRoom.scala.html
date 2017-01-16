@@ -2,11 +2,12 @@
 
 @scripts = {
     <script src="@routes.Assets.at("javascripts/video.js")"></script>
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 }
 
 @main(messages("customer.session.register.page.title"), Some(user), scripts) {
-    <div class="container" style="margin-top: 150px;">
-        <div class="row">
+    <div class="services wthree-4">
+        <div class="container">
             <div class="col-md-12">
                 <div id="video" class="col-md-8 col-md-offset-2" data-couch-apikey="@openTokInfo._1" data-couch-session="@openTokInfo._2" data-couch-token="@openTokInfo._3">
                     <div class="col-md-12" id="othersVideo">
@@ -19,6 +20,7 @@
                 <div class="col-md-6 col-md-offset-3" style="margin-top: 10px;" id="myVideo">
 
                 </div>
+                <button id="disconnectBtn" class="btn btn-default">Disconnect</button>
             </div>
         </div>
     </div>

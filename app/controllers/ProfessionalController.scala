@@ -118,13 +118,13 @@ class ProfessionalController @Inject()(val specialitiesRepository: SpecialityRep
       for{
         profile <- result.map{case(Some(p)) => p }
         _ <- profileRepository.update(profile.id.get, profile.copy(yearsOfExperience = Some(data._2), numberOfCases = Some(data._1), aboutMe = Some(data._3)))
-      } yield Redirect(routes.ProfessionalController.professionalProfile).flashing("success" -> "Ok")
+      } yield Redirect(routes.ProfessionalController.professionalProfile).flashing("success" -> Messages("professional.profile.edit.form.ok"))
     })
   }
 
 
   def updateprofessionalPhotoProfile = silhouette.SecuredAction(parse.multipartFormData) { request =>
-    request.body.file("picture").map { picture =>
+    request.body.file("file").map { picture =>
       import java.io.File
       val filename = picture.filename
       val contentType = picture.contentType
@@ -137,7 +137,7 @@ class ProfessionalController @Inject()(val specialitiesRepository: SpecialityRep
         profileRepository.update(profile.id.get, profile.copy(avatarUrl = Some(filename)))
       }
 
-      Redirect(routes.ProfessionalController.professionalProfile).flashing("success" -> "Ok")
+      Redirect(routes.ProfessionalController.professionalProfile).flashing("success" -> Messages("professional.profile.edit.form.ok"))
 
     }.getOrElse {
       Redirect(routes.ProfessionalController.professionalProfile).flashing(

@@ -2,9 +2,9 @@
 
 @main("", Some(user)) {
 
-    <div class="container" style="margin-top: 70px;">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+    <div class="services wthree-4">
+        <div class="container">
+
                 <div class="col-md-12">
                     <div class="col-md-4">
                         @profile.get.avatarUrl.map { case (image) =>
@@ -14,7 +14,7 @@
                         }
                         @helper.form(action = routes.ProfessionalController.updateprofessionalPhotoProfile(), 'enctype -> "multipart/form-data") {
 
-                            <input type="file" name="picture">
+                            <input type="file" name="file">
                             @helper.CSRF.formField
                             <p>
                                 <input type="submit">
@@ -23,18 +23,15 @@
                         }
                     </div>
                     <div class="col-md-8">
-                        <p>
-                        @profile.get.aboutMe
-                        <p>
-                        @profile.get.yearsOfExperience
-                        </p>
-                        <p>
-                        @profile.get.numberOfCases
-                        </p>
-                        <a href="@routes.ProfessionalController.editprofessionalProfile()">edit</a>
+                        <ul class="list-group">
+                            <li><strong>@messages("professional.profile.edit.form.field2")</strong> @profile.get.yearsOfExperience</li>
+                            <li><strong>@messages("professional.profile.edit.form.field1")</strong> @profile.get.numberOfCases</li>
+                            <li><strong>@messages("professional.profile.edit.form.field3")</strong> @profile.get.aboutMe.getOrElse("")</li>
+                        </ul>
+                        <a class="btn btn-default" href="@routes.ProfessionalController.editprofessionalProfile()">edit</a>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
 

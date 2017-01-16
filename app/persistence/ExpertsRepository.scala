@@ -159,7 +159,7 @@ class ExpertsRepository @Inject()(protected val dbConfigProvider: DatabaseConfig
 
     val offset = pageSize * page
 
-    val pro = this.profiles.drop(offset).take(pageSize).join(this.users).on(_.userId === _.id)
+    val pro = this.profiles.drop(offset).take(pageSize).join(this.users).on(_.userId === _.id).filter(_._2.fullName.toLowerCase like filter)
 
     val h = this.experts
       .filter(_.userId in pro.map(_._1.userId))

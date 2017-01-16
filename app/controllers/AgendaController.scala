@@ -153,7 +153,7 @@ AgendaController @Inject()(val messagesApi: MessagesApi,
     var startDate : java.time.ZonedDateTime = null;
 
     if(start.isEmpty){
-     startDate =  java.time.ZonedDateTime.now(ZoneId.of(timezone))
+     startDate =  java.time.ZonedDateTime.now(ZoneId.of(timezone)).plusMinutes(10)
     }else{
       startDate = java.time.ZonedDateTime.parse(start)
     }

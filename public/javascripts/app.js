@@ -30,6 +30,7 @@ $(function(){
 
     var renderLoadMoreBtn = function (action,target) {
 
+        var container = document.createElement("div");
         var btn = document.createElement("button");
         var str = localDate.add(1, 'days').toISOString();
         btn.setAttribute("class","btn requestAgenda");
@@ -43,9 +44,9 @@ $(function(){
         }
 
         btn.appendChild(document.createTextNode("Next"));
+        container.appendChild(btn);
 
-
-        return btn;
+        return container;
     };
 
     var renderProfessionalAgenda = function(data,id){

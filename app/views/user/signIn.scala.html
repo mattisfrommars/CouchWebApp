@@ -39,13 +39,14 @@
                                 <img style="width: 64px; height: 64px;" class="img-responsive" src="@routes.Assets.at(s"images/providers/${p.id}.png")" width="64px" height="64px" alt="@Messages(p.id)"></a>
                         </li>
                     }
+                        </ul>
                     </div>
                     @defining(socialProviders.get[ClefProvider]) { clef =>
                         @if(clef.isDefined) {
                             <script type="text/javascript" src="https://clef.io/v3/clef.js" class="clef-button" data-app-id="@clef.get.settings.clientID" data-color="blue" data-style="flat" data-redirect-url="@clef.get.settings.redirectURL" data-type="signIn"></script>
                         }
                     }
-                    </ul>
+
                 </div>
             }
             </div>

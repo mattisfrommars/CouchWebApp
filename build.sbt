@@ -1,7 +1,7 @@
 
 name := "Couch"
 
-version := "1.0"
+version := "1.0.3"
 
 lazy val `couch` = (project in file(".")).enablePlugins(PlayScala)
 
@@ -37,3 +37,6 @@ resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
+
+
+fork in run := true

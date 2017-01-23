@@ -1,0 +1,1 @@
+web: ./bin/couch -Dhttp.port=5000 -Dplay.crypto.secret=klhonon

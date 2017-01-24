@@ -48,7 +48,7 @@ class SignInController @Inject() (
                                    configuration: Configuration,
                                    clock: Clock,
                                    implicit val webJarAssets: WebJarAssets)
-  extends Controller with I18nSupport {
+  extends Controller with I18nSupport with Logger {
 
   /**
     * Views the `Sign In` page.
@@ -70,7 +70,7 @@ class SignInController @Inject() (
       data => {
         val credentials = Credentials(data.email, data.password)
         credentialsProvider.authenticate(credentials).flatMap { loginInfo =>
-          val result = Redirect(routes.Application.index())
+          val result = Redirect(routes.SessionController.sessions())
           userService.retrieve(loginInfo).flatMap {
             case Some(user) if ! user.activated =>
               Future.successful(Ok(views.html.user.activateAccount(data.email)))
